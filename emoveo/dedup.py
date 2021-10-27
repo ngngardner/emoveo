@@ -1,5 +1,7 @@
 """Deduplication of pdf files."""
 
+import time
+
 import PyPDF2 as pdf
 from beartype import beartype
 from PyPDF2.pdf import PageObject
@@ -19,16 +21,21 @@ def unique_pages(pages: list[PageObject]) -> list[PageObject]:
     """
     res = []
     page_contents = []
+
+    start_time = time.time()
     for page in pages:
         page_content = page.extractText()
         if page_content not in page_contents:
             res.append(page)
             page_contents.append(page_content)
 
+    diff = round(time.time() - start_time, 4)
+    console.log('Time taken: {0}'.format(diff))
+
     return res
 
 
-@beartype
+@ beartype
 def set_pages(path: str, pages: list[PageObject]) -> None:
     """Set pages of output pdf file and write it.
 
@@ -36,12 +43,12 @@ def set_pages(path: str, pages: list[PageObject]) -> None:
         path (str): Path to pdf file.
         pages (list): List of pages.
     """
-    out_path = path.replace('.pdf', '_dedup.pdf')
+    out_path=path.replace('.pdf', '_dedup.pdf')
     with open(out_path, 'wb') as fout:
-        writer = pdf.PdfFileWriter()
+        writer=pdf.PdfFileWriter()
 
         console.log('Number of pages before dedup: {0}'.format(len(pages)))
-        pages = unique_pages(pages)
+        pages=unique_pages(pages)
         console.log('Number of pages after dedup: {0}'.format(len(pages)))
 
         for page in pages:
@@ -51,7 +58,7 @@ def set_pages(path: str, pages: list[PageObject]) -> None:
         writer.write(fout)
 
 
-@beartype
+@ beartype
 def dedup(path: str) -> None:
     """Deduplicate pdf files.
 
@@ -60,9 +67,9 @@ def dedup(path: str) -> None:
     """
     console.log('Deduplicating "{0}"'.format(path))
     with open(path, 'rb') as fin:
-        reader = pdf.PdfFileReader(fin)
+        reader=pdf.PdfFileReader(fin)
 
-        pages = []
+        pages=[]
         for idx in range(reader.numPages):
             pages.append(reader.getPage(idx))
 
