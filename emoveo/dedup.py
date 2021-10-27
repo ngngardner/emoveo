@@ -43,12 +43,12 @@ def set_pages(path: str, pages: list[PageObject]) -> None:
         path (str): Path to pdf file.
         pages (list): List of pages.
     """
-    out_path=path.replace('.pdf', '_dedup.pdf')
+    out_path = path.replace('.pdf', '_dedup.pdf')
     with open(out_path, 'wb') as fout:
-        writer=pdf.PdfFileWriter()
+        writer = pdf.PdfFileWriter()
 
         console.log('Number of pages before dedup: {0}'.format(len(pages)))
-        pages=unique_pages(pages)
+        pages = unique_pages(pages)
         console.log('Number of pages after dedup: {0}'.format(len(pages)))
 
         for page in pages:
@@ -67,9 +67,9 @@ def dedup(path: str) -> None:
     """
     console.log('Deduplicating "{0}"'.format(path))
     with open(path, 'rb') as fin:
-        reader=pdf.PdfFileReader(fin)
+        reader = pdf.PdfFileReader(fin)
 
-        pages=[]
+        pages = []
         for idx in range(reader.numPages):
             pages.append(reader.getPage(idx))
 
