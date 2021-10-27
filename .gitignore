@@ -1,3 +1,11 @@
+# custom
+.vscode
+.direnv/**
+
+# nix
+result/**
+
+# python
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
