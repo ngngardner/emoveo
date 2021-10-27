@@ -35,7 +35,7 @@ def unique_pages(pages: list[PageObject]) -> list[PageObject]:
     return res
 
 
-@ beartype
+@beartype
 def set_pages(path: str, pages: list[PageObject]) -> None:
     """Set pages of output pdf file and write it.
 
@@ -58,7 +58,7 @@ def set_pages(path: str, pages: list[PageObject]) -> None:
         writer.write(fout)
 
 
-@ beartype
+@beartype
 def dedup(path: str) -> None:
     """Deduplicate pdf files.
 
